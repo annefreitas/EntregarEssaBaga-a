@@ -7,6 +7,7 @@ class ProcessoInterface:
     def execute_query(self, query, insert=False):
         cur = self.mysql.connection.cursor()
         cur.execute(query)
+        
         if insert:
             self.mysql.connection.commit()
         else:
@@ -28,10 +29,22 @@ class ProcessoInterface:
 
         return data[0]["last"]
 
+    def deleta_processo():
+        
+
+    def get_processos_ids(self):
+        data = self.execute_query("select processo_id from setor")
+        ids = []
+
+        if data is not None:
+            for d in data:
+                ids.append(d['processo_id'])
+
+        return ids
+
+    #Talvez não tenha
     def get_processos_usuario(self,user_id):
         data = self.execute_query("select F.* from processo as F AND P.processo_id = F.funcionalidade_id AND U.usuario_id = '{}'".format(user_id))
         return data
 
-    def get_processos_ids(self):
-        data = self.execute_query('''select processo_id from processo''')
-        return data
+    
