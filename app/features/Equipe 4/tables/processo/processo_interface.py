@@ -19,9 +19,14 @@ class ProcessoInterface:
         data = self.execute_query("select * from processo where processo_id = '{}' limit 1".format(processo_id))
         return data[0]
         
+
+    def edita_processo(self,processo):
+        self.execute_query("update processo set processo_desc = '{}', processo_tipo = '{}',usuario_id = '{}',\
+         where processo_id = '{}'".format(processo.get_desc,processo.get_tipo(),usuario.get_usuario().get_id()), True)
+
     def cadastra_processo(self, processo):
-        self.execute_query("insert into processo(processo_tipo, processo_id, processo_descricao, usuario_id)\
-         values('{}', '{}', '{}', '{}')".format(processo.nome, processo.get_id(), processo.descricao, processo.get_usuario().get_id()), True)
+        self.execute_query("insert into processo(processo_tipo, processo_desc, usuario_id)\
+         values('{}', '{}', '{}', '{}')".format(processo.get_tipo(), processo.get_desc(), processo.get_usuario().get_id()), True)
         data = self.execute_query("select LAST_INSERT_ID() as last from processo")
 
         if len(data) < 1:
@@ -30,8 +35,10 @@ class ProcessoInterface:
         return data[0]["last"]
 
     def deleta_processo():
-        
+        self.execute_query("delete from processo where processo_id = '{}'".format(processo_id), True)
+        self.execute_query("delete from docs where processo_id = '{}'".format(processo_id), True)    
 
+    
     def get_processos_ids(self):
         data = self.execute_query("select processo_id from setor")
         ids = []
