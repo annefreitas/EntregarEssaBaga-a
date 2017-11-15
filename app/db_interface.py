@@ -5,9 +5,13 @@ from .tables.setor.setor_interface import SetorInterface
 from .tables.perfil.perfil_interface import PerfilInterface
 from .tables.funcionalidade.funcionalidade_interface import FuncionalidadeInterface
 from .tables.sistema.sistema_interface import SistemaInterface
+from .tables.equipe_2.processo.processo_interface import ProcessoInterfaceDois
+from .tables.equipe_12.processos.processos_interface import ProcessosInterfaceDoze
+from .tables.processo_equipe_3.processo_interface import ProcessoInterface
+from .tables.equipe4.tables.processo.processo_interface import ProcessoInterfaceQuatro
 
+class Zelda(FuncionarioInterface, UsuarioInterface, SetorInterface, PerfilInterface, ProcessoInterfaceDois, FuncionalidadeInterface, SistemaInterface, ProcessosInterfaceDoze, ProcessoInterface, ProcessoInterfaceQuatro):
 
-class Zelda(FuncionarioInterface, UsuarioInterface, SetorInterface, PerfilInterface, FuncionalidadeInterface, SistemaInterface):
 
     def __init__(self, app):
         self.mysql = MySQL(app)

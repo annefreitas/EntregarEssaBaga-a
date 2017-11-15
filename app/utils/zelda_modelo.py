@@ -5,12 +5,13 @@ from ..tables.usuario.usuario_modelo import Usuario
 from ..tables.perfil.perfil_modelo import Perfil
 from ..tables.funcionalidade.funcionalidade_modelo import Funcionalidade
 from ..tables.sistema.sistema_modelo import Sistema
-from ..tables.processo.processo_modelo import Processo
+from ..tables.processos.processos_modelo import Processo
 
 class ZeldaModelo:
 
     setores = []
     funcionarios = []
+
 
     @staticmethod
     def lista_setores():
@@ -20,13 +21,22 @@ class ZeldaModelo:
             ZeldaModelo.setores.append(setor)
 
         return ZeldaModelo.setores
-    
+
     @staticmethod
     def lista_setores_ativos():
         result = []
         for setor_id in db.get_setores_ativos_ids():
             setor = Setor(setor_id)
             result.append(setor)
+
+        return result
+
+    @staticmethod
+    def listar_processos():
+        result = []
+        for data in db.get_processos_ids():
+            processo = Processo(data['processo_id'])
+            result.append(processo)
 
         return result
 
@@ -77,16 +87,6 @@ class ZeldaModelo:
             result.append(sistema)
 
         return result
-
-    @staticmethod
-    def lista_processos():
-        result = []
-        for data in db.get_processos_ids():
-            processo = processo(data['processo_id'])
-            result.append(processo)
-
-        return result
-
 
     @staticmethod
     def pesquisa_funcionalidade(caminho):
